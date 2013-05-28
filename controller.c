@@ -57,6 +57,7 @@ int main(int argc, char ** argv) {
 		 * -update webpage
 		 * -wait for next test to start
 		 */
+
 		printf("Start. \n");
 		printf("Generate webpage and wait for user input. \n");
 		printf("Turn on halogen spots. \n");
