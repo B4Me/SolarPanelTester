@@ -1,4 +1,4 @@
-SolarPanelTester
-================
+solar-controller
+===================
 
-A device to test the performance of solar panels on-sight
+EPRO1 - SolarPanelTester (2013)
