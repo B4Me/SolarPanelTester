@@ -32,7 +32,8 @@ int main(int argc, char ** argv) {
 	//To set the value of the GPIO output:
 	//system("echo 1 > /sys/class/gpio/gpio23/value");
 
-
+asd
+asd
 	// MAIN LOOP
 	while (1) {
 		/*
