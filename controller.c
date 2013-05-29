@@ -22,7 +22,7 @@
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
 
-int I_V_array[2][ARRAY_SIZE];
+volatile static int I_V_array[2][ARRAY_SIZE];
 int array_index = 0;
 
 float DAC_value = 0.000;
@@ -130,8 +130,8 @@ int main(int argc, char ** argv) {
 			fscanf(file, "%d", &adc6_value);
 			fclose(file);
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
-			I_V_array[1][array_index] = adc4_value;
-			I_V_array[2][array_index] = adc6_value;
+			I_V_array[0][array_index] = adc4_value;
+			I_V_array[1][array_index] = adc6_value;
 			array_index++;
 		}
 
@@ -150,7 +150,7 @@ int main(int argc, char ** argv) {
 		printf("wait for next test to start. \n");
 		sleep(4);
 		for (array_index = 0; array_index < ARRAY_SIZE; array_index++) {
-			printf("V:%d - I%d \n", I_V_array[1][array_index],I_V_array[2][array_index]);
+			printf("No:%d - V:%d - I%d \n",array_index, I_V_array[0][array_index],I_V_array[1][array_index]);
 		}
 		sleep(4);
 	}
