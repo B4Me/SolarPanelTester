@@ -82,7 +82,7 @@ int main(int argc, char ** argv) {
 			file = fopen("/dev/dac", "w");
 			fprintf(file, "%4.2fv", DAC_value);
 			fclose(file);
-			printf("DAC value:%4.2fv/n", DAC_value);
+			printf("DAC value:%4.2fv\n", DAC_value);
 			//wait xx ms
 			sleep_ms(50);
 			//read ADC's
