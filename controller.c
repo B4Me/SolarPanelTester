@@ -14,11 +14,14 @@
 
 #define 	MAX_GATE_SUPPLY		3.29
 #define 	MIN_GATE_SUPPLY		2.00
+
+#define array_size  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01)
+
 #define 	SWEEP_DELAY_MS		5
 
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
-static int array_size = (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01);
+
 int I_V_array[2][array_size];
 int array_index = 0;
 
@@ -126,11 +129,11 @@ int main(int argc, char ** argv) {
 			fscanf(file, "%d", &adc6_value);
 			fclose(file);
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
-			I_V_array[1][array_index]=adc4_value;
-			I_V_array[2][array_index]=adc6_value;
-	}
+			I_V_array[1][array_index] = adc4_value;
+			I_V_array[2][array_index] = adc6_value;
+		}
 
-	//turn off DAC
+		//turn off DAC
 		DAC_value = 0;
 		file = fopen("/dev/dac", "w");
 		fprintf(file, "%4.2fv", DAC_value);
@@ -144,9 +147,9 @@ int main(int argc, char ** argv) {
 		printf("update webpage. \n");
 		printf("wait for next test to start. \n");
 		sleep(4);
-		for(array_index = 0; array_index < array_size; array_index++)
-		{
-			printf("V:%d - I%d \n",I_V_array[1][array_index],I_V_array[2][array_index]);
+		for (array_index = 0; array_index < array_size; array_index++) {
+			printf("V:%d - I%d \n", I_V_array[1][array_index],
+					I_V_array[2][array_index]);
 		}
 		sleep(4);
 	}
