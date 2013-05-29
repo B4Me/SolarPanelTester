@@ -88,14 +88,14 @@ int main(int argc, char ** argv) {
 			//wait xx ms
 			sleep_ms(SWEEP_DELAY_MS);
 			//read ADC's
-			file = fopen("/sys/devices/platform/omap/tsc/ain7", "r");
-			fscanf(file, "%d", &adc6_value);
-			fclose(file);
-			fprintf(stdout, "VOUT adc reading: %d\n", adc6_value);
 			file = fopen("/sys/devices/platform/omap/tsc/ain5", "r");
 			fscanf(file, "%d", &adc4_value);
 			fclose(file);
-			fprintf(stdout, "IOUT adc reading: %d\n", adc4_value);
+			fprintf(stdout, "VOUT adc reading: %d\n", adc4_value);
+			file = fopen("/sys/devices/platform/omap/tsc/ain7", "r");
+			fscanf(file, "%d", &adc6_value);
+			fclose(file);
+			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
 		}
 		
 		//turn off DAC
