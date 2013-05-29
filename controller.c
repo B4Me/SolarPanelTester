@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 
 #define 	MAX_GATE_SUPPLY		3.29
-#define 	MIN_GATE_SUPPLY		0.00
+#define 	MIN_GATE_SUPPLY		2.00
 #define 	SWEEP_DELAY_MS		5
 
 FILE* file;
