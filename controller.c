@@ -131,7 +131,7 @@ int main(int argc, char ** argv) {
 			fclose(file);
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
 			I_V_array[1][array_index] = adc4_value;
-//			I_V_array[2][array_index] = adc6_value;
+			I_V_array[2][array_index] = adc6_value;
 			array_index++;
 		}
 
