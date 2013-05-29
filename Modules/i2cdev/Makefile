@@ -2,7 +2,7 @@ obj-m += i2cdev.o
 
 CROSS = arm-linux-gnueabi-
 
-KDIR = /home/jwn/linux-dev/KERNEL
+KDIR = /home/b4me/linux-dev/KERNEL
 
 PWD := $(shell pwd)
 
