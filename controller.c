@@ -14,6 +14,7 @@
 
 #define 	MAX_GATE_SUPPLY		3.29
 #define 	MIN_GATE_SUPPLY		0.00
+#define 	SWEEP_DELAY_MS		5
 
 FILE* file;
 int adc_value;
@@ -85,7 +86,7 @@ int main(int argc, char ** argv) {
 			fclose(file);
 			printf("DAC value:%4.2fv\n", DAC_value);
 			//wait xx ms
-			sleep_ms(50);
+			sleep_ms(SWEEP_DELAY_MS);
 			//read ADC's
 			file = fopen("/sys/devices/platform/omap/tsc/ain1", "r");
 			fscanf(file, "%d", &adc_value);
