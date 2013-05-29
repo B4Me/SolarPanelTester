@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define 	MAX_GATE_SUPPLY		3.29
+#define 	MAX_GATE_SUPPLY		3.30
 #define 	MIN_GATE_SUPPLY		0.00
 
 FILE* file;
@@ -76,7 +76,7 @@ int main(int argc, char ** argv) {
 		printf("wait x sec. for lights to stabilize. \n");
 		printf("Setup DAC. \n");
 		printf("Test loop... \n");
-		for (DAC_value = MIN_GATE_SUPPLY; DAC_value <= MAX_GATE_SUPPLY;
+		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
 				DAC_value += 0.01) {
 			//write to DAC
 
