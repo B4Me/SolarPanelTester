@@ -13,6 +13,9 @@
 
 #define 	MAX_GATE_SUPPLY		3.3
 
+FILE* file;
+int adc_value;
+
 void sleep_ms();
 
 int main(int argc, char ** argv) {
@@ -22,7 +25,8 @@ int main(int argc, char ** argv) {
 
 	//init ADC
 	//install ADC module
-	system("insmod /lib/modules/3.2.33-psp26.1/kernel/drivers/input/touchscreen/ti_tscadc.ko");
+	system(
+			"insmod /lib/modules/3.2.33-psp26.1/kernel/drivers/input/touchscreen/ti_tscadc.ko");
 	//Usage: cat /sys/devices/platform/omap/tsc/ain1
 
 	//init GPIO
@@ -64,19 +68,30 @@ int main(int argc, char ** argv) {
 		printf("Start. \n");
 		printf("Generate webpage and wait for user input. \n");
 		printf("Turn on halogen spots. \n");
+		//system("echo 1 > /sys/class/gpio/gpio23/value");
+		
 		printf("wait x sec. for lights to stabilize. \n");
 		printf("Setup DAC. \n");
 		printf("Test loop... \n");
-		for(float DAC_value = 0; DAC_value < MAX_GATE_SUPPLY; DAC_value += 0.01)
-		{
+		for (float DAC_value = 0; DAC_value < MAX_GATE_SUPPLY; DAC_value +=
+				0.01) {
 			//write to DAC
-			system("%f", DAC_value);
+
+			file = fopen("/dev/dac", "w");
+			fprintf(file, "%4.2fv", DAC_value);
+			fclose(file);
+			printf("%4.2fv", DAC_value);
 			//wait xx ms
-			sleep_ms(5);
+			sleep_ms(50);
 			//read ADC's
-			cat /sys/devices/platform/omap/tsc/ain1
+			file = fopen("/sys/devices/platform/omap/tsc/ain1", "r");
+			fscanf(file, "%d", &adc_value);
+			fclose(file);
+			fprintf(stdout, "adc reading: %d\n",adc_value);
+
 		}
 		printf("Turn lights off. \n");
+		//system("echo 0 > /sys/class/gpio/gpio23/value");
 		printf("Calculate MPP. \n");
 		printf("Generate Test report/graphs. \n");
 		printf("update webpage. \n");
