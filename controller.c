@@ -17,7 +17,7 @@
 
 #define array_size  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01)
 
-#define 	SWEEP_DELAY_MS		5
+#define 	SWEEP_DELAY_MS		3
 
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
@@ -150,8 +150,7 @@ int main(int argc, char ** argv) {
 		printf("wait for next test to start. \n");
 		sleep(4);
 		for (array_index = 0; array_index < array_size; array_index++) {
-			printf("V:%d - I%d \n", I_V_array[1][array_index],
-					I_V_array[2][array_index]);
+			printf("V:%d - I%d \n", I_V_array[1][array_index],I_V_array[2][array_index]);
 		}
 		sleep(4);
 	}
