@@ -25,7 +25,7 @@ int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
 int I_V_array[2][ARRAY_SIZE];
 int array_index = 0;
 
-float DAC_value = 0.0;
+float DAC_value = 0.000;
 
 void sleep_ms();
 
@@ -130,8 +130,8 @@ int main(int argc, char ** argv) {
 			fscanf(file, "%d", &adc6_value);
 			fclose(file);
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
-			I_V_array[1][array_index] = adc4_value;
-			I_V_array[2][array_index] = adc6_value;
+//			I_V_array[1][array_index] = adc4_value;
+//			I_V_array[2][array_index] = adc6_value;
 			array_index++;
 		}
 
