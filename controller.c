@@ -53,7 +53,7 @@ int main(int argc, char ** argv) {
 	//init WT ?
 	//
 
-	printf("init done. \n");
+	printf("init done. %d\n",ARRAY_SIZE);
 
 	// MAIN LOOP
 	while (1) {
