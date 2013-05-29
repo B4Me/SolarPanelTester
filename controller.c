@@ -94,6 +94,13 @@ int main(int argc, char ** argv) {
 			fprintf(stdout, "adc reading: %d\n", adc_value);
 
 		}
+		//turn off DAC
+		DAC_value = 0;
+		file = fopen("/dev/dac", "w");
+		fprintf(file, "%4.2fv", DAC_value);
+		fclose(file);
+		printf("DAC value:%4.2fv\n", DAC_value);
+
 		printf("Turn lights off. \n");
 		//system("echo 0 > /sys/class/gpio/gpio23/value");
 		printf("Calculate MPP. \n");
