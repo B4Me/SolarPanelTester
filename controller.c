@@ -22,6 +22,8 @@
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
 
+char  logfile[50];
+
 volatile static int I_V_array[2][ARRAY_SIZE];
 int array_index = 0;
 
@@ -30,6 +32,10 @@ float DAC_value = 0.000;
 void sleep_ms();
 
 int main(int argc, char ** argv) {
+	//init logfile
+	fprintf(stdout, "file init\n");
+	system("echo 0 > logfile");
+
 	//init DAC
 	//install DAC module
 	system("insmod i2cdev.ko");
@@ -112,7 +118,7 @@ int main(int argc, char ** argv) {
 		printf("Test loop... \n");
 		array_index = 0;	//reset index
 		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
-				DAC_value += 0.1) {
+				DAC_value += 0.001) {
 			//write to DAC
 
 			file = fopen("/dev/dac", "w");
@@ -149,8 +155,17 @@ int main(int argc, char ** argv) {
 		printf("update webpage. \n");
 		printf("wait for next test to start. \n");
 		sleep(4);
+
+		sprintf(logfile,"logfile",1);
 		for (array_index = 0; array_index < ARRAY_SIZE; array_index++) {
 			printf("No:%d - V:%d - I%d \n",array_index, I_V_array[0][array_index],I_V_array[1][array_index]);
+			// write to file
+			// calculate filename
+			file = fopen(logfile, "a");
+			if (file != NULL) {
+				fprintf(file, "No:%d - V:%d - I%d \n",array_index, I_V_array[0][array_index],I_V_array[1][array_index]);
+				fclose(file);
+			}
 		}
 		sleep(4);
 	}
