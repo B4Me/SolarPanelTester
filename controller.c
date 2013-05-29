@@ -10,6 +10,7 @@
 #include <dirent.h>
 #include <complex.h>
 #include <stdbool.h>
+#include <sys/wait.h>
 
 #define 	MAX_GATE_SUPPLY		3.3
 
@@ -81,7 +82,7 @@ int main(int argc, char ** argv) {
 			file = fopen("/dev/dac", "w");
 			fprintf(file, "%4.2fv", DAC_value);
 			fclose(file);
-			printf("%4.2fv", DAC_value);
+			printf("DAC value:%4.2fv/n", DAC_value);
 			//wait xx ms
 			sleep_ms(50);
 			//read ADC's
