@@ -12,12 +12,12 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define 	MAX_GATE_SUPPLY		3.29
-#define 	MIN_GATE_SUPPLY		2.00
+#define 	SWEEP_DELAY_MS		1
 
+#define 	MAX_GATE_SUPPLY		3.00	//on the DAC output!!!
+#define 	MIN_GATE_SUPPLY		2.00	//on the DAC output!!!
 #define array_size  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01)
 
-#define 	SWEEP_DELAY_MS		3
 
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
