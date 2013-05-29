@@ -18,6 +18,9 @@
 
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
+
+int I_V_array[2][(MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01];
+
 float DAC_value = 0.0;
 
 void sleep_ms();
@@ -56,7 +59,8 @@ int main(int argc, char ** argv) {
 		 * If(test started from web interface)
 		 * -Turn on halogen spots
 		 * -wait x sec. for lights to stabilize
-		 *
+		 * -read initials
+		 * 
 		 * -while(test not over)
 		 * ---Read ADC (volt & current on panels)
 		 * ---Increase DAC
@@ -74,28 +78,28 @@ int main(int argc, char ** argv) {
 		//system("echo 1 > /sys/class/gpio/gpio23/value");
 
 		printf("wait x sec. for lights to stabilize. \n");
-		
+
 		printf("Read initial values. \n");
 		file = fopen("/sys/devices/platform/omap/tsc/ain1", "r");
 		fscanf(file, "%d", &adc0_value);
 		fclose(file);
 		fprintf(stdout, "Iref adc reading: %d\n", adc0_value);
-		
+
 		file = fopen("/sys/devices/platform/omap/tsc/ain2", "r");
 		fscanf(file, "%d", &adc1_value);
 		fclose(file);
 		fprintf(stdout, "Vref adc reading: %d\n", adc1_value);
-		
+
 		file = fopen("/sys/devices/platform/omap/tsc/ain3", "r");
 		fscanf(file, "%d", &adc2_value);
 		fclose(file);
 		fprintf(stdout, "IOUT offset adc reading: %d\n", adc2_value);
-		
+
 		file = fopen("/sys/devices/platform/omap/tsc/ain5", "r");
 		fscanf(file, "%d", &adc4_value);
 		fclose(file);
 		fprintf(stdout, "VOUT adc reading: %d\n", adc4_value);
-		
+
 		file = fopen("/sys/devices/platform/omap/tsc/ain7", "r");
 		fscanf(file, "%d", &adc6_value);
 		fclose(file);
@@ -121,9 +125,11 @@ int main(int argc, char ** argv) {
 			fscanf(file, "%d", &adc6_value);
 			fclose(file);
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
-		}
+			I_V_array[1][adc4_value];
+			I_V_array[2][adc6_value];
+	}
 
-		//turn off DAC
+	//turn off DAC
 		DAC_value = 0;
 		file = fopen("/dev/dac", "w");
 		fprintf(file, "%4.2fv", DAC_value);
