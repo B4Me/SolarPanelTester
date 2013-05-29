@@ -56,7 +56,6 @@ int main(int argc, char ** argv) {
 		 * If(test started from web interface)
 		 * -Turn on halogen spots
 		 * -wait x sec. for lights to stabilize
-		 * -Setup DAC
 		 *
 		 * -while(test not over)
 		 * ---Read ADC (volt & current on panels)
@@ -75,7 +74,33 @@ int main(int argc, char ** argv) {
 		//system("echo 1 > /sys/class/gpio/gpio23/value");
 
 		printf("wait x sec. for lights to stabilize. \n");
-		printf("Setup DAC. \n");
+		
+		printf("Read initial values. \n");
+		file = fopen("/sys/devices/platform/omap/tsc/ain1", "r");
+		fscanf(file, "%d", &adc0_value);
+		fclose(file);
+		fprintf(stdout, "Iref adc reading: %d\n", adc0_value);
+		
+		file = fopen("/sys/devices/platform/omap/tsc/ain2", "r");
+		fscanf(file, "%d", &adc1_value);
+		fclose(file);
+		fprintf(stdout, "Vref adc reading: %d\n", adc1_value);
+		
+		file = fopen("/sys/devices/platform/omap/tsc/ain3", "r");
+		fscanf(file, "%d", &adc2_value);
+		fclose(file);
+		fprintf(stdout, "IOUT offset adc reading: %d\n", adc2_value);
+		
+		file = fopen("/sys/devices/platform/omap/tsc/ain5", "r");
+		fscanf(file, "%d", &adc4_value);
+		fclose(file);
+		fprintf(stdout, "VOUT adc reading: %d\n", adc4_value);
+		
+		file = fopen("/sys/devices/platform/omap/tsc/ain7", "r");
+		fscanf(file, "%d", &adc6_value);
+		fclose(file);
+		fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
+
 		printf("Test loop... \n");
 		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
 				DAC_value += 0.01) {
@@ -97,7 +122,7 @@ int main(int argc, char ** argv) {
 			fclose(file);
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
 		}
-		
+
 		//turn off DAC
 		DAC_value = 0;
 		file = fopen("/dev/dac", "w");
