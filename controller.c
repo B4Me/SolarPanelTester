@@ -53,7 +53,7 @@ int main(int argc, char ** argv) {
 	//init WT ?
 	//
 
-	printf("init done. %d\n",ARRAY_SIZE);
+	printf("init done. \n");
 
 	// MAIN LOOP
 	while (1) {
@@ -112,7 +112,7 @@ int main(int argc, char ** argv) {
 		printf("Test loop... \n");
 		array_index = 0;	//reset index
 		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
-				DAC_value += 0.001) {
+				DAC_value += 0.1) {
 			//write to DAC
 
 			file = fopen("/dev/dac", "w");
