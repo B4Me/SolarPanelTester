@@ -110,6 +110,7 @@ int main(int argc, char ** argv) {
 		fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
 
 		printf("Test loop... \n");
+		array_index = 0;	//reset index
 		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
 				DAC_value += 0.01) {
 			//write to DAC
@@ -131,6 +132,7 @@ int main(int argc, char ** argv) {
 			fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
 			I_V_array[1][array_index] = adc4_value;
 			I_V_array[2][array_index] = adc6_value;
+			array_index++;
 		}
 
 		//turn off DAC
