@@ -12,11 +12,11 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define 	SWEEP_DELAY_MS		1
+#define 	SWEEP_DELAY_MS		4
 
 #define 	MAX_GATE_SUPPLY		3.00	//on the DAC output!!!
 #define 	MIN_GATE_SUPPLY		2.00	//on the DAC output!!!
-#define array_size  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01)
+#define array_size  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.001)
 
 
 FILE* file;
@@ -112,7 +112,7 @@ int main(int argc, char ** argv) {
 		printf("Test loop... \n");
 		array_index = 0;	//reset index
 		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
-				DAC_value += 0.01) {
+				DAC_value += 0.001) {
 			//write to DAC
 
 			file = fopen("/dev/dac", "w");
