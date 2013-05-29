@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define 	MAX_GATE_SUPPLY		3.30
+#define 	MAX_GATE_SUPPLY		3.29
 #define 	MIN_GATE_SUPPLY		0.00
 
 FILE* file;
@@ -72,12 +72,12 @@ int main(int argc, char ** argv) {
 		printf("Generate webpage and wait for user input. \n");
 		printf("Turn on halogen spots. \n");
 		//system("echo 1 > /sys/class/gpio/gpio23/value");
-		
+
 		printf("wait x sec. for lights to stabilize. \n");
 		printf("Setup DAC. \n");
 		printf("Test loop... \n");
-		for (DAC_value = MIN_GATE_SUPPLY; DAC_value <= MAX_GATE_SUPPLY; DAC_value +=
-				0.01) {
+		for (DAC_value = MIN_GATE_SUPPLY; DAC_value <= MAX_GATE_SUPPLY;
+				DAC_value += 0.01) {
 			//write to DAC
 
 			file = fopen("/dev/dac", "w");
@@ -90,7 +90,7 @@ int main(int argc, char ** argv) {
 			file = fopen("/sys/devices/platform/omap/tsc/ain1", "r");
 			fscanf(file, "%d", &adc_value);
 			fclose(file);
-			fprintf(stdout, "adc reading: %d\n",adc_value);
+			fprintf(stdout, "adc reading: %d\n", adc_value);
 
 		}
 		printf("Turn lights off. \n");
