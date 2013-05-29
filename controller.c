@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define 	SWEEP_DELAY_MS		4
+#define 	SWEEP_DELAY_MS		5
 
 #define 	MAX_GATE_SUPPLY		3.00	//on the DAC output!!!
 #define 	MIN_GATE_SUPPLY		2.00	//on the DAC output!!!
@@ -116,9 +116,9 @@ int main(int argc, char ** argv) {
 			//write to DAC
 
 			file = fopen("/dev/dac", "w");
-			fprintf(file, "%5.2fv", DAC_value);
+			fprintf(file, "%5.3fv", DAC_value);
 			fclose(file);
-			printf("DAC value:%5.2fv\n", DAC_value);
+			printf("DAC value:%5.3fv\n", DAC_value);
 			//wait xx ms
 			sleep_ms(SWEEP_DELAY_MS);
 			//read ADC's
@@ -138,9 +138,9 @@ int main(int argc, char ** argv) {
 		//turn off DAC
 		DAC_value = 0;
 		file = fopen("/dev/dac", "w");
-		fprintf(file, "%5.2fv", DAC_value);
+		fprintf(file, "%5.3fv", DAC_value);
 		fclose(file);
-		printf("DAC value:%5.2fv\n", DAC_value);
+		printf("DAC value:%5.3fv\n", DAC_value);
 
 		printf("Turn lights off. \n");
 		//system("echo 0 > /sys/class/gpio/gpio23/value");
