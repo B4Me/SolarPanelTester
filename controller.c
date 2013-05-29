@@ -14,8 +14,8 @@
 
 #define 	SWEEP_DELAY_MS		5
 
-#define 	MAX_GATE_SUPPLY		3.00	//on the DAC output!!!
-#define 	MIN_GATE_SUPPLY		2.00	//on the DAC output!!!
+#define 	MAX_GATE_SUPPLY		2.80	//on the DAC output!!!
+#define 	MIN_GATE_SUPPLY		2.20	//on the DAC output!!!
 #define 	ARRAY_SIZE  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.001)
 
 
