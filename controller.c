@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define 	MAX_GATE_SUPPLY		3.30
+#define 	MAX_GATE_SUPPLY		3.29
 #define 	MIN_GATE_SUPPLY		0.00
 
 FILE* file;
