@@ -15,6 +15,7 @@
 
 FILE* file;
 int adc_value;
+float DAC_value = 0.0;
 
 void sleep_ms();
 
@@ -73,7 +74,7 @@ int main(int argc, char ** argv) {
 		printf("wait x sec. for lights to stabilize. \n");
 		printf("Setup DAC. \n");
 		printf("Test loop... \n");
-		for (float DAC_value = 0; DAC_value < MAX_GATE_SUPPLY; DAC_value +=
+		for (DAC_value = 0.00; DAC_value < MAX_GATE_SUPPLY; DAC_value +=
 				0.01) {
 			//write to DAC
 
