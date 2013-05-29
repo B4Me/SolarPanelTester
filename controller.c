@@ -18,8 +18,8 @@
 
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
-
-int I_V_array[2][(MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01];
+static int array_size = (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.01);
+int I_V_array[2][array_size];
 int array_index = 0;
 
 float DAC_value = 0.0;
@@ -143,7 +143,12 @@ int main(int argc, char ** argv) {
 		printf("Generate Test report/graphs. \n");
 		printf("update webpage. \n");
 		printf("wait for next test to start. \n");
-		sleep(1);
+		sleep(4);
+		for(array_index = 0; array_index < array_size; array_index++)
+		{
+			printf("V:%d - I%d \n",I_V_array[1][array_index],I_V_array[2][array_index]);
+		}
+		sleep(4);
 	}
 	return 0;
 }
