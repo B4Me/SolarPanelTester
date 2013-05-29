@@ -17,7 +17,7 @@
 #define 	SWEEP_DELAY_MS		5
 
 FILE* file;
-int adc_value;
+int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
 float DAC_value = 0.0;
 
 void sleep_ms();
@@ -88,12 +88,16 @@ int main(int argc, char ** argv) {
 			//wait xx ms
 			sleep_ms(SWEEP_DELAY_MS);
 			//read ADC's
-			file = fopen("/sys/devices/platform/omap/tsc/ain1", "r");
-			fscanf(file, "%d", &adc_value);
+			file = fopen("/sys/devices/platform/omap/tsc/ain7", "r");
+			fscanf(file, "%d", &adc6_value);
 			fclose(file);
-			fprintf(stdout, "adc reading: %d\n", adc_value);
-
+			fprintf(stdout, "VOUT adc reading: %d\n", adc6_value);
+			file = fopen("/sys/devices/platform/omap/tsc/ain5", "r");
+			fscanf(file, "%d", &adc4_value);
+			fclose(file);
+			fprintf(stdout, "IOUT adc reading: %d\n", adc4_value);
 		}
+		
 		//turn off DAC
 		DAC_value = 0;
 		file = fopen("/dev/dac", "w");
