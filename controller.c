@@ -18,11 +18,10 @@
 #define 	MIN_GATE_SUPPLY		2.20	//on the DAC output!!!
 #define 	ARRAY_SIZE  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.001)
 
-
 FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
 
-char  logfile[50];
+char logfile[50];
 
 volatile static int I_V_array[2][ARRAY_SIZE];
 int array_index = 0;
@@ -36,8 +35,8 @@ int main(int argc, char ** argv) {
 	fprintf(stdout, "file init\n");
 //	system("echo 0 > logfile");
 
-	//init DAC
-	//install DAC module
+//init DAC
+//install DAC module
 	system("insmod i2cdev.ko");
 
 	//init ADC
@@ -116,7 +115,7 @@ int main(int argc, char ** argv) {
 		fprintf(stdout, "IOUT adc reading: %d\n", adc6_value);
 
 		printf("Test loop... \n");
-		array_index = 0;	//reset index
+		array_index = 0; //reset index
 		for (DAC_value = MIN_GATE_SUPPLY; DAC_value < MAX_GATE_SUPPLY;
 				DAC_value += 0.001) {
 			//write to DAC
@@ -155,18 +154,35 @@ int main(int argc, char ** argv) {
 		printf("update webpage. \n");
 		printf("wait for next test to start. \n");
 //		sleep(4);
+		int MPP_value = 0;
+		int MPP_index = 1;
+		for (array_index = 0; array_index < ARRAY_SIZE; array_index++) {
+			int temp = I_V_array[0][array_index] * I_V_array[1][array_index];
+			if (MPP_value < temp) {
+				MPP_index = array_index;
+				MPP_value = temp;
+			}
 
+		}
+		system("rm /var/www/MPPfile");
+		file = fopen(MPPfile, "a");
+		if (file != NULL) {
+			fprintf(file, "V:%d - I:%d\n",
+					I_V_array[0][MPP_index], I_V_array[1][MPP_index]);
+			fclose(file);
+		}
 
 		system("rm /var/www/logfile");
-		sprintf(logfile,"/var/www/logfile",1);
+		sprintf(logfile, "/var/www/logfile", 1);
 		for (array_index = 0; array_index < ARRAY_SIZE; array_index++) {
 //			printf("No:%d - V:%d - I%d \n",array_index, I_V_array[0][array_index],I_V_array[1][array_index]);
 			// write to file
 			// calculate filename
-		
+
 			file = fopen(logfile, "a");
 			if (file != NULL) {
-				fprintf(file, "No:%d - V:%d - I:%d\n",array_index, I_V_array[0][array_index],I_V_array[1][array_index]);
+				fprintf(file, "No:%d - V:%d - I:%d\n", array_index,
+						I_V_array[0][array_index], I_V_array[1][array_index]);
 				fclose(file);
 			}
 		}
