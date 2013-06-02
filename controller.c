@@ -168,7 +168,7 @@ int main(int argc, char ** argv) {
 		}
 
 		system("rm /var/www/MPPfile");
-		sprintf(MPPfile, "/var/www/logfile", 1);
+		sprintf(MPPfile, "/var/www/MPPfile", 1);
 		file = fopen(MPPfile, "a");
 		if (file != NULL) {
 			fprintf(file, "V:%d - I:%d\n", I_V_array[0][MPP_index],
