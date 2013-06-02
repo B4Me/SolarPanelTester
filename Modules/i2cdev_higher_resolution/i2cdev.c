@@ -47,7 +47,7 @@ static ssize_t dac_read(struct file *filp, char *buf, size_t count, loff_t *offp
 		valprobe = ((data_string[1] << 4) & 0xFF0) | ((data_string[2] >> 4) & 0xF);
 		printk(KERN_INFO "DAC register value is : %d", valprobe);
 		valprobe = valprobe*3300/4096;
-		printk(KERN_INFO "dac: current output voltage is %d.%d%d%dv.", valprobe/1000, valprobe%1000/100, valprobe%100/10, valprobe%10);
+		printk(KERN_INFO "dac: current output voltage is %d.%d%d%dv.", valprobe/1000, valprobe%1000/100, 										       valprobe%100/10, valprobe%10);
 		if(copy_to_user(buf, data_string, 6)) 
 		{
 			status = -EFAULT;
@@ -74,12 +74,14 @@ static ssize_t dac_write(struct file *filp, const char *buf, size_t count, loff_
 		goto write_done;	
 	}
 	
-	if((dac_dev.user_buff[0] >= 0x30 && dac_dev.user_buff[0] <= 0x33) && dac_dev.user_buff[1] == '.' &&
+	if((dac_dev.user_buff[0] >= 0x30 && dac_dev.user_buff[0] <= 0x33) && 
+	   dac_dev.user_buff[1] == '.' &&
 	   (dac_dev.user_buff[2] >= 0x30 && dac_dev.user_buff[2] <= 0x39) && 
 	   (dac_dev.user_buff[3] >= 0x30 && dac_dev.user_buff[3] <= 0x39) && 
-	   (dac_dev.user_buff[4] >= 0x30 && dac_dev.user_buff[4] <= 0x39) && dac_dev.user_buff[5] == 'v')
+	   (dac_dev.user_buff[4] >= 0x30 && dac_dev.user_buff[4] <= 0x39) && 
+	   dac_dev.user_buff[5] == 'v')
 	{
-		for(i=1; i<5; i++)
+		for(i=1; i<4; i++)
 		{
 			dac_dev.user_buff[i] = dac_dev.user_buff[i+1];	
 		}
@@ -111,7 +113,7 @@ static ssize_t dac_write(struct file *filp, const char *buf, size_t count, loff_
 		printk(KERN_INFO "calibration begins.\n");
 		calival = (buff[0] << 8) | buff[1];
 		printk(KERN_INFO "calibration DAC buffer: 0x%x\n", calival);
-		calival = calival*33000/4096;
+		calival = calival*330000/4096;
 		if ((calival%10) > 5)
 			calival = calival/10 + 1;
 		else
@@ -131,7 +133,7 @@ static ssize_t dac_write(struct file *filp, const char *buf, size_t count, loff_
 			printk("DAC register value has been adapted to: 0x%x 0x%x\n", buff[0], buff[1]);
 
 			calival = (buff[0] << 8) | buff[1];
-			calival = calival*33000/4096;
+			calival = calival*330000/4096;
 			if ((calival%10) > 5)
 				calival = calival/10 + 1;
 			else
