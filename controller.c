@@ -22,6 +22,8 @@ FILE* file;
 int adc0_value, adc1_value, adc2_value, adc4_value, adc6_value;
 
 char logfile[50];
+char MPPfile[50];
+
 
 volatile static int I_V_array[2][ARRAY_SIZE];
 int array_index = 0;
@@ -154,21 +156,23 @@ int main(int argc, char ** argv) {
 		printf("update webpage. \n");
 		printf("wait for next test to start. \n");
 //		sleep(4);
+
 		int MPP_value = 0;
-		int MPP_index = 1;
+		int MPP_index = 0;
 		for (array_index = 0; array_index < ARRAY_SIZE; array_index++) {
 			int temp = I_V_array[0][array_index] * I_V_array[1][array_index];
 			if (MPP_value < temp) {
 				MPP_index = array_index;
 				MPP_value = temp;
 			}
-
 		}
+
 		system("rm /var/www/MPPfile");
-		file = fopen(file, "a");
+		sprintf(MPPfile, "/var/www/logfile", 1);
+		file = fopen(MPPfile, "a");
 		if (file != NULL) {
-			fprintf(file, "V:%d - I:%d\n",
-					I_V_array[0][MPP_index], I_V_array[1][MPP_index]);
+			fprintf(file, "V:%d - I:%d\n", I_V_array[0][MPP_index],
+					I_V_array[1][MPP_index]);
 			fclose(file);
 		}
 
