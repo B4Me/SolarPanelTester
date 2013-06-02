@@ -165,7 +165,7 @@ int main(int argc, char ** argv) {
 
 		}
 		system("rm /var/www/MPPfile");
-		file = fopen(MPPfile, "a");
+		file = fopen(file, "a");
 		if (file != NULL) {
 			fprintf(file, "V:%d - I:%d\n",
 					I_V_array[0][MPP_index], I_V_array[1][MPP_index]);
