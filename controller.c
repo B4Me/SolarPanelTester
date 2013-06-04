@@ -14,8 +14,8 @@
 
 #define 	SWEEP_DELAY_MS		5
 
-#define 	MAX_GATE_SUPPLY		2.80	//on the DAC output!!!
-#define 	MIN_GATE_SUPPLY		2.20	//on the DAC output!!!
+#define 	MAX_GATE_SUPPLY		2.90	//on the DAC output!!!
+#define 	MIN_GATE_SUPPLY		2.00	//on the DAC output!!!
 #define 	ARRAY_SIZE  (int)((MAX_GATE_SUPPLY - MIN_GATE_SUPPLY) / 0.001)
 
 FILE* file;
@@ -83,7 +83,7 @@ int main(int argc, char ** argv) {
 		printf("Start. \n");
 		printf("Generate webpage and wait for user input. \n");
 		printf("Turn on halogen spots. \n");
-		//system("echo 1 > /sys/class/gpio/gpio60/value");
+		system("echo 1 > /sys/class/gpio/gpio60/value");
 
 		printf("wait x sec. for lights to stabilize. \n");
 		sleep(5);
@@ -148,7 +148,7 @@ int main(int argc, char ** argv) {
 		printf("DAC value:%5.3fv\n", DAC_value);
 
 		printf("Turn lights off. \n");
-		//system("echo 0 > /sys/class/gpio/gpio60/value");
+		system("echo 0 > /sys/class/gpio/gpio60/value");
 		printf("Calculate MPP. \n");
 		printf("Generate Test report/graphs. \n");
 		printf("update webpage. \n");
